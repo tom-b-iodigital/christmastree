@@ -51,15 +51,19 @@ namespace ChristmasPoem.ViewModels
             PoemState = PoemStatus.FetchingPoem;
             Poem = await _aIService.GetPoemAsync(Keyword);
 
-            try
+            if (!string.IsNullOrEmpty(Poem))
             {
-                PoemState = PoemStatus.RecitingPoem;
-                await TextToSpeech.Default.SpeakAsync(Poem);
-                PoemState = PoemStatus.DisplayingPoem;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
+
+                try
+                {
+                    PoemState = PoemStatus.RecitingPoem;
+                    await TextToSpeech.Default.SpeakAsync(Poem);
+                    PoemState = PoemStatus.DisplayingPoem;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
         }
         

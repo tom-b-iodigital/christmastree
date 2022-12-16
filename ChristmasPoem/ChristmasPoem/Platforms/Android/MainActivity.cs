@@ -52,6 +52,8 @@ public class MainActivity : MauiAppCompatActivity, IRecognitionListener
             }
         });
 
+        Window.AddFlags(Android.Views.WindowManagerFlags.KeepScreenOn | Android.Views.WindowManagerFlags.TurnScreenOn);
+
         base.OnCreate(savedInstanceState);
     }
 
@@ -90,7 +92,11 @@ public class MainActivity : MauiAppCompatActivity, IRecognitionListener
             _speechRecognizer = SpeechRecognizer.CreateSpeechRecognizer(this);
 
             _speechRecognizer.SetRecognitionListener(this);
-            _speechRecognizer.StartListening(CreateIntent());
+
+            if (SpeechRecognizer.IsRecognitionAvailable(this))
+            {
+                _speechRecognizer.StartListening(CreateIntent());
+            }
         }
     }
 
@@ -103,7 +109,7 @@ public class MainActivity : MauiAppCompatActivity, IRecognitionListener
             {
                 try
                 {
-                    await TextToSpeech.Default.SpeakAsync($"{word} is a great choice, give me a moment to write a poem for you");
+                    await TextToSpeech.Default.SpeakAsync($"{word} is a fine choice! Letting the words flow - get ready for a poetic show!");
 
                     WeakReferenceMessenger.Default.Send<WordSaidMessage>(new(word));
                 }
