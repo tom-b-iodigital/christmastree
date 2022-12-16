@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<shortcuts
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+  <capability
+      android:name="custom.actions.intent.CHRISTMAS_POEM"
+      app:queryPatterns="@array/ExampleQueries">
+    <intent>
+      <url-template
+          android:value="http://christmaspoem.iodigital.com{?keyword}" />
+      <parameter
+          android:name="keyword"
+          android:key="keyword"
+          android:mimeType="https://schema.org/Text" />
+    </intent>
+  </capability>
+</shortcuts>

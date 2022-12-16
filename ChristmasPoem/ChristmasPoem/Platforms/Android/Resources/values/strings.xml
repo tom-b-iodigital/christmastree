@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <string-array name="ExampleQueries">
+    <item>tell me a poem about $keyword</item>
+    <item>recite me a christmas poem</item>
+    <item>recite a christmas poem with the word $keyword</item>
+    <item>suprise me with a poem</item>
+    <item>suprise me with a poem about $keyword</item>
+  </string-array>
+</resources>
