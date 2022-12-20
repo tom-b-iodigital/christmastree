@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModel="clr-namespace:ChristmasPoem.ViewModels"
+             xmlns:views="clr-namespace:ChristmasPoem.Views"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="ChristmasPoem.MainPage">
     <Grid x:DataType="viewModel:MainPageViewModel">
         <Grid.RowDefinitions>
@@ -9,28 +11,52 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" BackgroundColor="#C59859" Padding="20,10,20,20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="15"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
+        <Grid Grid.Row="0">
+            <Image Source="gold.png" Aspect="AspectFill"/>
+            <Grid Padding="20,10,20,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="15"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
 
-            </Grid.RowDefinitions>
-            <Image Grid.Row="0" Source="christmas_assistant.png"/>
+                </Grid.RowDefinitions>
+                <Image Grid.Row="0" Source="christmas_assistant.png"/>
 
-            <Image Grid.Row="1" Source="hello.png" VerticalOptions="End" HorizontalOptions="Start"/>
+                <Image Grid.Row="1" Source="hello.png" VerticalOptions="End" HorizontalOptions="Start"/>
+                <Grid Grid.Row="2" toolkit:StateContainer.CurrentState="{Binding PoemStateString}" toolkit:StateContainer.ShouldAnimateOnStateChange="False">
+                    <toolkit:StateContainer.StateViews>
+                        <Grid toolkit:StateView.StateKey="NoPoem"/>
+                        <Label toolkit:StateView.StateKey="RecitingPoem"  Text="{Binding Poem}" FontAttributes="Bold" FontSize="12" 
+                           VerticalTextAlignment="Center"
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Start" 
+                           HorizontalTextAlignment="Start"
+                           TextColor="White" />
+                        <Label toolkit:StateView.StateKey="DisplayingPoem" Text="{Binding Poem}" FontAttributes="Bold" FontSize="12" 
+                           VerticalTextAlignment="Center"
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Start" 
+                           HorizontalTextAlignment="Start"
+                           TextColor="White" />
+                        <views:LoaderView toolkit:StateView.StateKey="FetchingPoem" HorizontalOptions="Start" Margin="0,20"/>
+                    </toolkit:StateContainer.StateViews>
+                </Grid>
 
-            <Label Grid.Row="2" Text="{Binding Poem}" FontAttributes="Bold" FontSize="12" 
-                   VerticalTextAlignment="Center"
-                   VerticalOptions="Center" 
-                   HorizontalOptions="Start" 
-                   HorizontalTextAlignment="Start"
-                   TextColor="White" />
+            </Grid>
         </Grid>
         <StackLayout Grid.Row="1" Padding="20" Spacing="10" BackgroundColor="White">
-            <Label Text="Current keyword" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="#634E42"/>
-            <Editor Text="{Binding Keyword}" TextColor="#634E42" HorizontalTextAlignment="Center"/>
-            <Button Command="{Binding GenerateNewPoemCommand}" BackgroundColor="#C59859" TextColor="White" FontAttributes="Bold" Text="TELL ME A HOLIDAY RHYME"></Button>
+            <Label Text="Current keyword" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="#BA6F3C"/>
+            <Editor Text="{Binding Keyword}" TextColor="#BA6F3C" HorizontalTextAlignment="Center"/>
+            <Border StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5"/>
+                </Border.StrokeShape>
+                <Grid HeightRequest="50">
+                    <Image Source="gold.png" Aspect="AspectFill"/>
+                    <Button Command="{Binding GenerateNewPoemCommand}" BackgroundColor="Transparent" TextColor="White" FontAttributes="Bold" Text="TELL ME A HOLIDAY RHYME"></Button>
+
+                </Grid>
+            </Border>
         </StackLayout>
     </Grid>
 </ContentPage>
