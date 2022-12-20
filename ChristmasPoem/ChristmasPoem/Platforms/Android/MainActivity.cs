@@ -109,7 +109,15 @@ public class MainActivity : MauiAppCompatActivity, IRecognitionListener
             {
                 try
                 {
-                    await TextToSpeech.Default.SpeakAsync($"{word} is a fine choice! Letting the words flow - get ready for a poetic show!");
+                    IEnumerable<Locale> locales = await TextToSpeech.Default.GetLocalesAsync();
+                    SpeechOptions options = new SpeechOptions()
+                    {
+                        Pitch = 1.5f,   // 0.0 - 2.0
+                        Volume = 0.75f, // 0.0 - 1.0
+                        Locale = locales.FirstOrDefault()
+                    };
+
+                    await TextToSpeech.Default.SpeakAsync($"{word} is a fine choice! Letting the words flow - get ready for a poetic show!", options);
 
                     WeakReferenceMessenger.Default.Send<WordSaidMessage>(new(word));
                 }
@@ -229,7 +237,15 @@ public class MainActivity : MauiAppCompatActivity, IRecognitionListener
                         {
                             try
                             {
-                                await TextToSpeech.Default.SpeakAsync(_greeting);
+                                IEnumerable<Locale> locales = await TextToSpeech.Default.GetLocalesAsync();
+                                SpeechOptions options = new SpeechOptions()
+                                {
+                                    Pitch = 1.5f,   // 0.0 - 2.0
+                                    Volume = 0.75f, // 0.0 - 1.0
+                                    Locale = locales.FirstOrDefault()
+                                };
+
+                                await TextToSpeech.Default.SpeakAsync(_greeting, options);
 
                                 _ = RefreshGreeting();
 

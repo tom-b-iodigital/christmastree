@@ -57,7 +57,16 @@ namespace ChristmasPoem.ViewModels
                 try
                 {
                     PoemState = PoemStatus.RecitingPoem;
-                    await TextToSpeech.Default.SpeakAsync(Poem);
+                    IEnumerable<Locale> locales = await TextToSpeech.Default.GetLocalesAsync();
+
+                    SpeechOptions options = new SpeechOptions()
+                    {
+                        Pitch = 1.5f,   // 0.0 - 2.0
+                        Volume = 0.75f, // 0.0 - 1.0
+                        Locale = locales.FirstOrDefault()
+                    };
+
+                    await TextToSpeech.Default.SpeakAsync(Poem, options);
                     PoemState = PoemStatus.DisplayingPoem;
                 }
                 catch (Exception e)

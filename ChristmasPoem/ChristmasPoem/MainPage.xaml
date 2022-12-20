@@ -3,47 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModel="clr-namespace:ChristmasPoem.ViewModels"
              x:Class="ChristmasPoem.MainPage">
-
     <Grid x:DataType="viewModel:MainPageViewModel">
-        <Image Source="background" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Aspect="AspectFill" />
-        <Grid Padding="15,15"
-              VerticalOptions="FillAndExpand">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0" BackgroundColor="#C59859" Padding="20,10,20,20">
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="15"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+
             </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="christmas_assistant.png"/>
 
-            <Grid HorizontalOptions="FillAndExpand"
-                  VerticalOptions="Start"
-                  Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+            <Image Grid.Row="1" Source="hello.png" VerticalOptions="End" HorizontalOptions="Start"/>
 
-                <Editor Text="{Binding Keyword}" HorizontalOptions="FillAndExpand" Grid.Column="0" TextColor="White" />
-
-                <Button Command="{Binding GenerateNewPoemCommand}" Text="HOLIDAY RHYMES!" HorizontalOptions="End" Grid.Column="1" BackgroundColor="#F5CF74" TextColor="#C09209" FontAttributes="Bold" />
-            </Grid>
-
-            <Label Text="{Binding Poem}" FontAttributes="Bold" FontSize="20" 
-                   VerticalTextAlignment="Center" 
+            <Label Grid.Row="2" Text="{Binding Poem}" FontAttributes="Bold" FontSize="12" 
+                   VerticalTextAlignment="Center"
                    VerticalOptions="Center" 
-                   HorizontalOptions="End" 
-                   HorizontalTextAlignment="End"
-                   FontFamily="SantasSleighFull"
-                   TextColor="White" 
-                   Grid.Row="1" />
-
-            <Image Source="iologo"
-                   HorizontalOptions="Start"
-                   Grid.Row="2"
-                   HeightRequest="100"
-                   WidthRequest="100" />
-
+                   HorizontalOptions="Start" 
+                   HorizontalTextAlignment="Start"
+                   TextColor="White" />
         </Grid>
+        <StackLayout Grid.Row="1" Padding="20" Spacing="10" BackgroundColor="White">
+            <Label Text="Current keyword" HorizontalTextAlignment="Center" FontAttributes="Bold" TextColor="#634E42"/>
+            <Editor Text="{Binding Keyword}" TextColor="#634E42" HorizontalTextAlignment="Center"/>
+            <Button Command="{Binding GenerateNewPoemCommand}" BackgroundColor="#C59859" TextColor="White" FontAttributes="Bold" Text="TELL ME A HOLIDAY RHYME"></Button>
+        </StackLayout>
     </Grid>
-
 </ContentPage>
