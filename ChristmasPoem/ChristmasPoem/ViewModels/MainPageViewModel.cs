@@ -61,7 +61,7 @@ namespace ChristmasPoem.ViewModels
 
                     SpeechOptions options = new SpeechOptions()
                     {
-                        Pitch = 1.5f,   // 0.0 - 2.0
+                        Pitch = 0.0f,   // 0.0 - 2.0
                         Volume = 0.75f, // 0.0 - 1.0
                         Locale = locales.FirstOrDefault()
                     };

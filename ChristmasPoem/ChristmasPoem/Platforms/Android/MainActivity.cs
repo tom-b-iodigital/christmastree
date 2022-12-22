@@ -112,7 +112,7 @@ public class MainActivity : MauiAppCompatActivity, IRecognitionListener
                     IEnumerable<Locale> locales = await TextToSpeech.Default.GetLocalesAsync();
                     SpeechOptions options = new SpeechOptions()
                     {
-                        Pitch = 1.5f,   // 0.0 - 2.0
+                        Pitch = 0.0f,   // 0.0 - 2.0
                         Volume = 0.75f, // 0.0 - 1.0
                         Locale = locales.FirstOrDefault()
                     };
@@ -230,7 +230,7 @@ public class MainActivity : MauiAppCompatActivity, IRecognitionListener
             {
                 if (!_wordMode)
                 {
-                    if (match.ToLower() == START_LISTENING_COMMAND)
+                    if (match.ToLower().IndexOf(START_LISTENING_COMMAND) > -1)
                     {
                         StopListening();
                         Task.Run(async () =>
@@ -240,7 +240,7 @@ public class MainActivity : MauiAppCompatActivity, IRecognitionListener
                                 IEnumerable<Locale> locales = await TextToSpeech.Default.GetLocalesAsync();
                                 SpeechOptions options = new SpeechOptions()
                                 {
-                                    Pitch = 1.5f,   // 0.0 - 2.0
+                                    Pitch = 0.0f,   // 0.0 - 2.0
                                     Volume = 0.75f, // 0.0 - 1.0
                                     Locale = locales.FirstOrDefault()
                                 };
